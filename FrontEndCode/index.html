@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graham Olson's Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .centered-image {
+            display: block; /* Use block level for centering */
+            margin-left: auto; /* Auto margin for horizontal centering */
+            margin-right: auto; 
+            width: 30%; /* Adjust this value to control the size of the image */
+            max-width: 100%; /* Ensures the image is not larger than its container */
+        }
+
+        .tab-content {
+            margin-top: 20px;
+        }
+    </style>
+
+
+<script src="js/visitor-counter.js"> </script>
+<script>
+  visitorCounter();
+</script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mt-4">Graham Olson's Portfolio</h1>
+
+        <!-- Tab navigation -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="resume-tab" data-toggle="tab" href="#resume" role="tab" aria-controls="resume" aria-selected="true">My Resume</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="paragraph-tab" data-toggle="tab" href="#paragraph" role="tab" aria-controls="paragraph" aria-selected="false">About This Site</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact Information</a>
+            </li>
+        </ul>
+
+        <!-- Tab content -->
+        <div class="tab-content" id="myTabContent">
+            <!-- Resume tab content -->
+            <div class="tab-pane fade show active" id="resume" role="tabpanel" aria-labelledby="resume-tab">
+                <div class="resume-content">
+                  <h2>Graham Olson</h2>
+                  <p>LOS ANGELES CA • 90045</p>
+                  <p>(916) 749-2043 • <a href="mailto:G@OLSON4.COM">G@OLSON4.COM</a> • <a href="https://linkedin.com/in/graham-olson-lmu" target="_blank">LINKEDIN.COM/IN/GRAHAM-OLSON-LMU</a></p>
+              
+                  <h3>Education</h3>
+                  <p><strong>Loyola Marymount University</strong>, Los Angeles CA<br>Graduating May 2024</p>
+                  <p>Bachelor of Arts: Information Systems & Business Analytics (ISBA)<br>GPA 3.14</p>
+                  <p><strong>Auckland University of Technology</strong>, Auckland New Zealand<br>January 2023–May 2023<br>Study Abroad Program</p>
+                  <p>Related Coursework: Database Management Systems, Programming for Business Applications, Networking and Cloud Computing, Operations Management</p>
+              
+                  <h3>Experiences</h3>
+                  <div>
+                      <p><strong>Master Of Science and Business Analytics Liaison</strong><br>Loyola Marymount University – Los Angeles CA, June 2023-Present</p>
+                      <p>Responsible for community outreach, event coordination, and alumni outreach efforts. Maintained communication with faculty and partnered organizations.</p>
+                  </div>
+                  <div>
+                      <p><strong>Co-President</strong><br>ISBA Society – Los Angeles CA, December 2021-Present</p>
+                      <p>Facilitated professional development and career insights. Organized speaker events and maintained alumni relations.</p>
+                  </div>
+                  <div>
+                      <p><strong>Certified Lifeguard</strong><br>Roseville & Los Angeles CA, 2020-2021</p>
+                      <p>Developed teamwork and customer service skills in emergency response and guest assistance.</p>
+                  </div>
+                  <div>
+                      <p><strong>Community Ambassador</strong><br>Phi Delta Theta, Los Angeles CA, January 2022-Present</p>
+                      <p>Maintained relationships with neighbors, school administration, and fraternity members.</p>
+                  </div>
+              
+                  <h3>Related Skills</h3>
+                  <p>Knowledgeable in SQL, Microsoft Access, Python, IBM SPSS, Cisco Packet Tracer, Docker, AWS services, and Microsoft Office (Excel, Access, Word, PowerPoint).</p>
+              </div>
+              
+            </div>
+
+            <!-- Paragraph tab content -->
+
+
+            <div class="tab-pane fade" id="paragraph" role="tabpanel" aria-labelledby="paragraph-tab">
+
+                <p>
+                    Total Visitor Count: <span id="visitor-counter"></span>
+                </p>
+
+                <p>The website you are on right now is the result of a challenge I completed called the “Cloud Resume Challenge”. It was part of a class I took at LMU called Networking & Cloud Computing which is where I became very familiar with networking and cybersecurity in modern business. The idea of the challenge is to build a website by hand, meaning go through every step from Hosting, to DNS, and eventually writing the javascript that makes up this text. For the majority of the website I utilized services provided by AWS so I started by creating S3 buckets. This is where the actual data for my website is stored, like this text and the image on my Contact Info page. I registered my domain, www.grahamolson.com, with a DNS hosting company called Namecheap. When you go to my domain it pulls the IP Address for this site from Route 53 which is an AWS service that resolves my domain name to an IP Address. This works in parallel with the AWS content delivery network called CloudFront. The purpose of a content delivery network is to cut down on load times by bringing your website to Amazon Edge locations when you might be far away from where the website is hosted. While you may be reading this on the West Coast, my website is hosted all the way in North Virginia. By utilizing a content delivery network when you reload this page it should be much quicker the second time. That is because a copy of it is currently being held on a server that is closer to you for a short time. On the backend of my website, I wanted to be able to track how many people had viewed my site in total. I did this by utilizing the Amazon API and tracking it with a fairly simple lambda function in Python. Every time my site is visited, a get request is sent for the information in the S3 bucket where the code for my website is stored. When this very HTML text file is run, it has a single line that tells Amazon API to run a Python file I have stored on AWS servers. This Python file has a lambda function which essentially tells my “visitor counter” to go up by one. I then store this final number in Amazon's DynamoDB. DynamoDB is Amazon's database service and is perfect for storing the single value I had for my project. Finally, to display the total visitor count on this page, I once again utilized Amazon’s API to pull the number from DynamoDB and embed it in my HTML text. 
+Overall the experience was difficult but very informational and I have something to show for all the work I did. One of the biggest hangups I had while creating my website was keeping track of every service I was using and making sure they resolved to the right location while ensuring that they were all hosted in the same place. I spent hours troubleshooting an issue where my DynamoDB database wasn't being updated each time I would send a new Get request for my site. At first, I thought it was an issue with the API and the way I had called it in my HTML file. After triple-checking that I moved on to my Lambda function figuring I simply did not update my DynamoDB table correctly. Each part of my process seemed correct but my visitor value still wouldn't update. While retracing the steps I used to create both my lambda and DynamoDB database, I saw a tiny difference between the two in that they had different values for their hosting locations. I had mistakenly created one on the us-east-1 and the other on the us-east-2 AWS servers. It was such a minuscule mistake but held up my project for hours and caused me a decent amount of frustration. Looking back on the project I can say that I have developed a great method for troubleshooting my web-related issues but also how to double-check my steps so that I don't run into issues like this in the future. I appreciated this project for how much hands-on experience I got with AWS services and for being able to take a deeper dive into how the Internet works. Most people could tell you how they can request a website but not how their request is translated into the data being sent to their browser. I would love to work at AWS one day and I think this gave me a tiny glimpse into the massive infrastructure that the entire world wide web is built on. I also appreciated how much I learned about HTML during this project. I went in knowing nothing about HTML but after looking at some templates and some internet tutorials I began to quickly pick up the formatting. I could see it being useful in the future if I ever needed to make a quick change to my website or if I was looking at the backend code for a website I was inspecting. 
+                </p>
+            </div>
+
+            <!-- Contact tab content -->
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <p>Contact information and photo go here.</p>
+                <!-- Insert your contact information and photo -->
+
+                <img src="/images/Graham_Portrait_image.jpg" class="centered-image">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        // Initialize Bootstrap tabs
+        $('#myTab a').on('click', function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+    </script>
+</body>
+</html>
